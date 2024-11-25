@@ -21,10 +21,10 @@ kb.row(button, button2)
 kb1 = ReplyKeyboardMarkup(resize_keyboard=True) #  клавиатура подстраивается под размеры интерфейса устройства
 button = KeyboardButton(text="Рассчитать")
 button2 = KeyboardButton(text="Информация")
-button3 = KeyboardButton(text='Купить')
+button3 = KeyboardButton(text='Купить') # добавляем кнопку "Купить".
 kb1.row(button, button2)
-kb1.add(button3)
-
+kb1.add(button3)   # расположение кнопки в нижнем ряду
+    # Создаем инлайн клавиатуру 'Product'
 product_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
@@ -47,6 +47,7 @@ async def start_message(message):
     print('Привет! Я бот помогающий твоему здоровью.')
     await message.answer("Привет! Я бот помогающий твоему здоровью.", reply_markup=kb1)
 
+# Команда Купить
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     for i in range(1, 5):
@@ -55,6 +56,7 @@ async def get_buying_list(message):
             await message.answer_photo(file)
     await message.answer("Выберите продукт для покупки.", reply_markup=product_kb)
 
+# Callback для Product 1-4
 @dp.callback_query_handler(text="product_buying")
 async def send_confirm_message(call):
     await call.message.answer("Вы успешно приобрели продукт!")
